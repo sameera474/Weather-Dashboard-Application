@@ -29,28 +29,22 @@ async function fetchWeatherDetail(createdUrl) {
 }
 
 // Live Weather
-function liveWeather(data, temp) {
-  document.getElementById("country").innerText = data.sys.country;
-  document.getElementById("city-name").innerText = data.name;
-  document.getElementById("temperature").innerText = (
+function liveWeather(data) {
+  document.getElementById("country").innerText = `Country ${data.sys.country}`;
+  document.getElementById("city-name").innerText = `City ${data.name}`;
+  document.getElementById("temperature").innerText = `Temperature ${(
     parseFloat(data.main.temp) - 273.15
-  ).toFixed(2);
-  document.getElementById("humidity").innerText = data.main.humidity;
+  ).toFixed(2)} °C`;
+  document.getElementById(
+    "humidity"
+  ).innerText = `Humidity ${data.main.humidity}`;
   document.getElementById("weather-icon").innerText = data.weather[0].icon;
-  document.getElementById("wind-speed").innerText = data.wind.speed;
+  document.getElementById(
+    "wind-speed"
+  ).innerText = `Wind Speed ${data.wind.speed}`;
   let temperature = parseFloat(data.main.temp) - 273.15;
   forToggleSwitch(temperature);
 }
-
-// Clear Button
-document.getElementById("clear-button").addEventListener("click", function () {
-  document.getElementById("country").innerText = "";
-  document.getElementById("city-name").innerText = "";
-  document.getElementById("temperature").innerText = "";
-  document.getElementById("humidity").innerText = "";
-  document.getElementById("weather-icon").innerText = "";
-  document.getElementById("wind-speed").innerText = "";
-});
 
 // celsius and fahrenheit
 
@@ -60,10 +54,14 @@ function forToggleSwitch(temperature) {
     .getElementById("toggleSwitch")
     .addEventListener("change", function () {
       if (this.checked) {
-        celsiusToFahrenheit(temperature);
+        document.getElementById(
+          "temperature"
+        ).innerText = `Temperature , ${celsiusToFahrenheit(temperature)} °F`;
         console.log(celsiusToFahrenheit(temperature));
       } else {
-        fahrenheitToCelsius(temperature);
+        document.getElementById(
+          "temperature"
+        ).innerText = `Temperature , ${fahrenheitToCelsius(temperature)} °C`;
         console.log(fahrenheitToCelsius(temperature));
       }
     });
@@ -74,3 +72,14 @@ function forToggleSwitch(temperature) {
     return temperature.toFixed(2);
   }
 }
+
+// Clear Button
+document.getElementById("clear-button").addEventListener("click", function () {
+  document.getElementById("search-input").value = "";
+  document.getElementById("country").innerText = "";
+  document.getElementById("city-name").innerText = "";
+  document.getElementById("temperature").innerText = "";
+  document.getElementById("humidity").innerText = "";
+  document.getElementById("weather-icon").innerText = "";
+  document.getElementById("wind-speed").innerText = "";
+});
