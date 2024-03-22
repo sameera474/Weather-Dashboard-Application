@@ -14,8 +14,9 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 350px;
-  height: 550px;
+  /* width: 30%;
+  height: 30%; */
+  padding: 5%;
   background-color: #0225569a;
   border-radius: 20px;
 }
@@ -23,6 +24,7 @@ body {
 .search-container {
   margin-bottom: 20px;
   display: flex;
+  margin-top: 10%;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -33,6 +35,7 @@ body {
 
 #search-input {
   align-items: center;
+  justify-content: center;
   padding: 10px;
   margin-right: 5px;
   border-radius: 5px;
@@ -63,10 +66,10 @@ body {
   gap: 20px;
 }
 
-#weather-container {
+.weather-container {
   align-items: center;
-  padding: 10px;
   justify-content: center;
+  text-align: center;
 }
 
 /* The switch - the box around the slider */
@@ -130,4 +133,13 @@ input:checked + .slider:before {
 
 .slider.round:before {
   border-radius: 50%;
+}
+
+.forecast-button {
+  padding: 10px;
+  border-radius: 20px;
+  background-color: #2196f3;
+  color: white;
+  /* box-shadow: 1px 1px 1px #002c6e; */
+  padding: 10px;
 }
