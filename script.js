@@ -25,12 +25,12 @@ document.getElementById("search-button").addEventListener("click", function () {
   // Check if the forecast button already exists to avoid duplication
   let forecastButton = document.querySelector(".forecast-button");
   if (!forecastButton) {
-    let forecat_button = document.createElement("button");
-    forecat_button.className = "forecast-button";
-    forecat_button.innerText = "Forecast";
-    main_weather_container.appendChild(forecat_button);
+    let forecast_button = document.createElement("button");
+    forecast_button.className = "forecast-button";
+    forecast_button.innerText = "Forecast";
+    main_weather_container.appendChild(forecast_button);
 
-    forecat_button.addEventListener("click", function () {
+    forecast_button.addEventListener("click", function () {
       console.log("its click");
       let cityName = document.getElementById("search-input").value.trim();
       if (cityName != "" && cityName != undefined) {
@@ -96,25 +96,41 @@ function liveWeather(data) {
 
   // return latitude, longitude;
 }
-
+const forecasttime = [1, 2, 3, 4, 5, 6, 7, 8];
+const forecast = document.querySelector(".forecast");
 function forecastWeather(data) {
-  console.log("forecastWeather");
+  console.log("forecastWeather............................");
+
+  for (let i = 0; i < forecasttime.length; i++) {
+    const forecastPannels = document.createElement("div");
+    forecastPannels.className = "forcast-pannels";
+    forecastPannels.setAttribute("id", i);
+    forecast.appendChild(forecastPannels);
+
+    forecasttime[i] = data.list[0];
+    console.log(forecasttime[i]);
+    const humidityValue = document.createElement("div");
+    humidityValue.setAttribute("id", i);
+    // document.getElementById("humidityValue").innerText = `${data.city.name}`;
+    forecastPannels.appendChild(humidityValue);
+    console.log(humidityValue);
+  }
 
   // document.getElementById("date").innerText = `${data.sys.country}`;
-  document.getElementById("city-name").innerText = `${data.city.name}`;
-  document.getElementById("feels-like-temperature").innerText = `${data.name}`;
-  document.getElementById(
-    "humidity-date"
-  ).innerText = `Humidity ${data.main.humidity}`;
-  const iconCode = data.weather[0].icon;
-  const iconUrl = ` https://openweathermap.org/img/wn/${iconCode}@2x.png`;
-  document.getElementById("weather-icon-date").src = iconUrl;
-  document.getElementById(
-    "wind-speed-date"
-  ).innerText = `Wind Speed ${data.wind.speed}`;
-  const temperature = (parseFloat(data.main.temp) - 273.15).toFixed(1);
-  document.getElementById("temperature-date").innerText = `${temperature} °C`;
-  forToggleSwitch(data.main.temp);
+  // document.getElementById("city-name").innerText = `${data.city.name}`;
+  // document.getElementById("feels-like-temperature").innerText = `${data.name}`;
+  // document.getElementById(
+  //   "humidity-date"
+  // ).innerText = `Humidity ${data.main.humidity}`;
+  // const iconCode = data.weather[0].icon;
+  // const iconUrl = ` https://openweathermap.org/img/wn/${iconCode}@2x.png`;
+  // document.getElementById("weather-icon-date").src = iconUrl;
+  // document.getElementById(
+  //   "wind-speed-date"
+  // ).innerText = `Wind Speed ${data.wind.speed}`;
+  // const temperature = (parseFloat(data.main.temp) - 273.15).toFixed(1);
+  // document.getElementById("temperature-date").innerText = `${temperature} °C`;
+  // forToggleSwitch(data.main.temp);
 }
 
 // celsius and fahrenheit
@@ -146,6 +162,7 @@ function forToggleSwitch(temperature) {
 
 // Clear Button
 document.getElementById("clear-button").addEventListener("click", function () {
+  // document.getElementsByClassName("forecast-button").remove();
   document.getElementById("search-input").value = "";
   document.getElementById("country").innerText = "";
   document.getElementById("city-name").innerText = "";
