@@ -2,9 +2,6 @@ const apiKey = "92eee5c7adef3eb7ae8f9181b46f2b63";
 const weatherUrl = "https://api.openweathermap.org/data/2.5/weather";
 const forcastWeatherUrl = "https://api.openweathermap.org/data/2.5/forecast";
 
-let latitude = 0;
-let longitude = 0;
-
 console.log("latitude:");
 // Search Button
 document.getElementById("search-button").addEventListener("click", function () {
@@ -12,6 +9,7 @@ document.getElementById("search-button").addEventListener("click", function () {
   let cityName = document.getElementById("search-input").value.trim();
   if (cityName != "" && cityName != undefined) {
     console.log(cityName);
+
     const liveWheatherUrl = `${weatherUrl}?q=${cityName}&appid=${apiKey}&units=metricdocument`;
     console.log("forecastWheatherUrl >", liveWheatherUrl);
     fetchWeatherDetail(liveWheatherUrl, cityName);
@@ -35,11 +33,18 @@ document.getElementById("search-button").addEventListener("click", function () {
       let cityName = document.getElementById("search-input").value.trim();
       if (cityName != "" && cityName != undefined) {
         console.log(cityName);
-        const forecastWheatherUrl = `${forcastWeatherUrl}/?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+
+        const getForcastUrl = (latitude, longitude, apiKey) => {
+          const forecastWheatherUrl = `${forcastWeatherUrl}/?lat=${latitude}&lon=${longitude}&appid=${apiKey}`;
+
+          return forecastWheatherUrl;
+        };
+
         console.log("latitude:", latitude);
         console.log("latitude:", longitude);
-        console.log("forecastWheatherUrl >", forecastWheatherUrl);
-        fetchForecastWeatherDetail(forecastWheatherUrl);
+        console.log("forecastWheatherUrl >", getForcastUrl);
+
+        fetchForecastWeatherDetail(getForcastUrl);
       } else {
         alert("Please enter a city name");
       }
@@ -65,7 +70,7 @@ async function fetchWeatherDetail(liveWheatherUrl) {
 async function fetchForecastWeatherDetail(forecastWheatherUrl) {
   console.log("calling fetchWeatherDetail");
   try {
-    const response = await fetch(forecastWheatherUrl);
+    const response = await fetch(getForcastUrl);
     const data = await response.json();
     console.log(data);
     forecastWeather(data);
